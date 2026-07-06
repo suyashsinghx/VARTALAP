@@ -45,6 +45,6 @@ app.listen(PORT, () => {
     console.log(`Server running on Port: http://localhost:${PORT}`);
 
     //cron job to send check request so that render doesnt goes offline and our site never downs
-    if(process.env(NODE_ENV === "production")) job.start();
+    if(process.env.NODE_ENV === "production") job.start();
 });
  

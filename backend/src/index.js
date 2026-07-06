@@ -4,6 +4,9 @@ import "dotenv/config";
 import { clerkMiddleware } from "@clerk/express";
 import cors from "cors";    //CORS:- Cross Orign Resource Sharing - its a security rule
 
+import fs from "fs";
+import path from "path";
+
 
 import { connect } from "mongoose";
 
@@ -14,6 +17,8 @@ const app = express();
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
+const publicDir = path.join(process.cwd(), "public");
+
 //middlewares....
 app.use(express.json());    //for reading the input data (req.body.image,text,video).. its a bodyParser
 app.use(clerkMiddleware()); //responsible for the authentication part
@@ -23,6 +28,18 @@ app.use(cors({origin: FRONTEND_URL, credentials: true}));
 app.get('/health', (req, res) => {
     res.status(200).json({ok:true});
 });
+
+//if public directory exists, serves the static file (Ye code React frontend ko Express server se serve karne ke liye hai)
+//this is for the production build
+
+if (fs.existsSync(publicDir)){
+    app.use(express.static(publicDir));
+
+    app.get("/{*any}", (req, res, next) => {
+        res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
+    });
+}
+//info: concept of the above code:- Production me React build (index.html, JS, CSS) ko Express serve karta hai. Agar user kisi React route (/chat, /profile) par directly aaye, to Express hamesha index.html bhejta hai aur baaki routing React Router sambhalta hai.
 
 app.listen(PORT, () => {
     connectDB();

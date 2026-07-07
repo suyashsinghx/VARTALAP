@@ -11,11 +11,14 @@ import path from "path";
 import { connect } from "mongoose";
 
 import clerkWebhook from "./webhooks/clerk.webhook.js";
+import checkRoute from "./routes/auth.route.js";
+
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";
 import { json } from "stream/consumers";
 import { type } from "os";
+
 
 const app = express();
 const PORT = process.env.PORT;

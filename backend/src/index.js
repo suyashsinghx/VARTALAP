@@ -7,11 +7,11 @@ import cors from "cors";    //CORS:- Cross Orign Resource Sharing - its a securi
 import fs from "fs";
 import path from "path";
 
-
 import { connect } from "mongoose";
 
 import clerkWebhook from "./webhooks/clerk.webhook.js";
-import checkRoute from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
@@ -34,6 +34,9 @@ app.use(express.json());    //for reading the input data (req.body.image,text,vi
 app.use(clerkMiddleware()); //responsible for the authentication part
 app.use(cors({origin: FRONTEND_URL, credentials: true}));    
 //CORS:-  browser security rule: dont allow other outer api making req to your server and vice versa
+
+app.use("/api/auth", authRoutes); 
+app.use("/api/messages", messageRoutes);
 
 app.get('/health', (req, res) => {
     res.status(200).json({ok:true});

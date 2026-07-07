@@ -10,6 +10,7 @@ import path from "path";
 
 import { connect } from "mongoose";
 
+import clerkWebhook from "./webhooks/clerk.webhook.js";
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";

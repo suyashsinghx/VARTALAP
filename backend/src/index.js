@@ -1,4 +1,4 @@
-import express from "express";
+import express, { application } from "express";
 import "dotenv/config";
 
 import { clerkMiddleware } from "@clerk/express";
@@ -13,12 +13,17 @@ import { connect } from "mongoose";
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";
+import { json } from "stream/consumers";
+import { type } from "os";
 
 const app = express();
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
 const publicDir = path.join(process.cwd(), "public");
+
+//it's important to keep the webhook event data in raw format, it shouldn't be in the raw format
+app.use("/api/webhooks/clerk", express.raw({type: "application/json"}) ,clerkWebhook);
 
 //middlewares....
 app.use(express.json());    //for reading the input data (req.body.image,text,video).. its a bodyParser

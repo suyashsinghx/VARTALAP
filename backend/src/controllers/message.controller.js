@@ -89,6 +89,10 @@ export async function getMessages(req, res) {
 }
 
 export async function sendMessage(req, res) {
+  // error solving--------------
+     console.log("req.params =", req.params);
+     console.log("receiverId =", req.params.id);
+  // error --------------
   try {
     const { text } = req.body;
     const { id: receiverId } = req.params;

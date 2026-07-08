@@ -16,11 +16,11 @@ import messageRoutes from "./routes/message.route.js";
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 import job from "./lib/cron.js";
-import { json } from "stream/consumers";
-import { type } from "os";
+// import { json } from "stream/consumers";
+import { app, server } from "./lib/socket.js";
 
 
-const app = express();
+// const app = express();       //we will not use this as we are using mixed server node+exp+socket.io
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -53,7 +53,8 @@ if (fs.existsSync(publicDir)){
 }
 //info: concept of the above code:- Production me React build (index.html, JS, CSS) ko Express serve karta hai. Agar user kisi React route (/chat, /profile) par directly aaye, to Express hamesha index.html bhejta hai aur baaki routing React Router sambhalta hai.
 
-app.listen(PORT, () => {
+//server -> socket.io server, imported from: backend->src->lib->socket.js
+server.listen(PORT, () => {
     connectDB();
     console.log(`Server running on Port: http://localhost:${PORT}`);
 

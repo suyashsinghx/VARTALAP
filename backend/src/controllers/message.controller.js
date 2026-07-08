@@ -1,14 +1,16 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
-// import { getReceiverSocketId, io } from "../lib/socket.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
+
+// the below code is all about mongoDB aggregation concepts
 
 export async function getUsersForSidebar(req, res) {
   try {
-    const loggedInUserId = req.user._id;
+    const loggedInUserId = req.user._id;        //request from middleware
 
     const filteredUsers = await User.find({
-      _id: { $ne: loggedInUserId },
+      _id: { $ne: loggedInUserId },         //$ne => !=(not equal)
     }).select("-clerkId");
 
     res.status(200).json(filteredUsers);
@@ -32,7 +34,7 @@ export async function getConversationsForSidebar(req, res) {
       // 2. Collapse them into one row per chat partner, noting our latest message time.
       {
         $group: {
-          // The partner is the other person on the message (not me).
+          // The partner is always the other person on the message (not me).
           _id: {
             $cond: [
               { $eq: ["$senderId", loggedInUserId] },
@@ -117,12 +119,12 @@ export async function sendMessage(req, res) {
 
     await newMessage.save();
 
-    //info: real-time messages ----socketio 
-    // const receiverSocketId = getReceiverSocketId(receiverId);
-    // // only send the message in realtime if user is online
-    // if (receiverSocketId) {
-    //   io.to(receiverSocketId).emit("newMessage", newMessage);
-    // }
+    //imp: real-time messages ----socketio 
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    // only send the message in realtime if user is online
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage);
   } catch (error) {

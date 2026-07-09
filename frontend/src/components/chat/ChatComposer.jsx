@@ -44,7 +44,7 @@ export function ChatComposer() {
   };
 
   return (
-    <footer className="shrink-0 border-t border-border px-1.5 pb-2 pt-2 sm:px-2">
+    <footer className="shrink-0 border-border px-1.5 pb-2 pt-2 sm:px-2">
       {isSendingMedia ? (
         <div className="mx-auto mb-2 flex max-w-full items-center gap-2 rounded-xl border border-border bg-surface px-3 py-2 text-sm text-muted">
           <LoaderIcon

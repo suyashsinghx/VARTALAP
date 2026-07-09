@@ -48,7 +48,7 @@ function ChatPage() {
       className="flex h-dvh flex-col overflow-hidden p-2 sm:p-3 md:p-8"
       style={frameStyle}
     >
-      <div className="mx-auto flex w-full max-w-6xl flex-1 overflow-hidden rounded-2xl border border-border bg-background text-foreground">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 overflow-hidden rounded-2xl border border-border bg-background/60 backdrop-blur-md text-foreground">
         <ChatSidebar />
 
         <div

@@ -6,28 +6,28 @@ import User from "../models/user.model.js";
 
 const seedUsers = [
   [
-    "seed_alex_chen",
-    "Alex Chen",
-    "alex.chen@example.com",
-    "https://i.pravatar.cc/150?img=1",
+    "seed_vihaan_pandey",
+    "Vihaan Pandey",
+    "vihan.pandey@example.com",
+    "https://i.pravatar.cc/150?img=56",
   ],
   [
     "seed_sam_taylor",
     "Sam Taylor",
     "sam.taylor@example.com",
-    "https://i.pravatar.cc/150?img=2",
+    "https://i.pravatar.cc/150?img=69",
   ],
   [
-    "seed_jordan_lee",
-    "Jordan Lee",
-    "jordan.lee@example.com",
-    "https://i.pravatar.cc/150?img=3",
+    "seed_anaya_methews",
+    "Anaya Methews",
+    "anaya.methew@example.com",
+    "https://i.pravatar.cc/150?img=38",
   ],
   [
     "seed_maya_patel",
     "Maya Patel",
     "maya.patel@example.com",
-    "https://i.pravatar.cc/150?img=4",
+    "https://i.pravatar.cc/150?img=24",
   ],
 //   [
 //     "seed_casey_morgan",

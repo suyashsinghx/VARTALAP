@@ -1,7 +1,4 @@
-import {
-  getInitials,
-  useSelectedConversation,
-} from "../../hooks/useSelectedConversation";
+import { getInitials, useSelectedConversation } from "../../hooks/useSelectedConversation";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useChatStore } from "../../store/useChatStore";
 import { APP_NAME, AppLogo } from "../AppLogo";
@@ -40,9 +37,7 @@ function ChatSidebar() {
   const sidebarTab = useChatStore((state) => state.sidebarTab);
   const setSidebarTab = useChatStore((state) => state.setSidebarTab);
 
-  const setActiveConversationId = useChatStore(
-    (state) => state.setActiveConversationId,
-  );
+  const setActiveConversationId = useChatStore((state) => state.setActiveConversationId);
 
   const onlineUsers = useAuthStore((state) => state.onlineUsers);
 
@@ -50,9 +45,7 @@ function ChatSidebar() {
 
   const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
-  const conversationUsers = conversations.map((user) =>
-    mapUserForList(user, onlineUsers),
-  );
+  const conversationUsers = conversations.map((user) => mapUserForList(user, onlineUsers));
   const allUsers = users.map((user) => mapUserForList(user, onlineUsers));
 
   const filteredConversations = normalizedSearchQuery
@@ -62,9 +55,7 @@ function ChatSidebar() {
     : conversationUsers;
 
   const filteredUsers = normalizedSearchQuery
-    ? allUsers.filter((user) =>
-        user.name.toLowerCase().includes(normalizedSearchQuery),
-      )
+    ? allUsers.filter((user) => user.name.toLowerCase().includes(normalizedSearchQuery))
     : allUsers;
 
   return (
@@ -73,7 +64,8 @@ function ChatSidebar() {
         !isLargeScreen && activeConversationId ? "hidden lg:flex" : "flex"
       }`}
     >
-      <div className="shrink-0 border-b border-border px-2 pb-2 pt-2.5 sm:px-3 sm:pt-3">
+      {/* if you want border btw app name and search bar then -> add (border-b) in class */}
+      <div className="shrink-0 border-border px-2 pb-2 pt-2.5 sm:px-3 sm:pt-3">
         <div className="flex items-center gap-2 px-0.5 sm:gap-2.5 sm:px-1">
           <AppLogo
             size={32}
@@ -99,7 +91,8 @@ function ChatSidebar() {
         variant="secondary"
         className="flex flex-1 flex-col overflow-y-auto"
       >
-        <div className="shrink-0 border-b border-border px-3 pb-2 pt-2">
+        {/* if you want boeder line btw search-bar and user-chat section -> add (border-b) in class */}
+        <div className="shrink-0 border-border px-3 pb-2 pt-2">
           <SearchField
             fullWidth
             variant="secondary"
@@ -107,7 +100,7 @@ function ChatSidebar() {
             value={searchQuery}
             onChange={setSearchQuery}
           >
-            <SearchField.Group className="rounded-xl">
+            <SearchField.Group className="rounded-xl opacity-60">
               <SearchField.SearchIcon />
               <SearchField.Input placeholder="Search" />
               {searchQuery ? <SearchField.ClearButton /> : null}

@@ -5,8 +5,8 @@ export function ConversationRow({ user, selected, onSelect }) {
   return (
     <button
       type="button"
-      onClick={onSelect}
-      className={`flex w-full items-center gap-3 border-b border-border px-3 py-2.5 text-left ${
+      onClick={onSelect} //if want borders btw the users cards -> put this in class (border-b)
+      className={`flex w-full items-center gap-3 border-border px-3 py-2.5 text-left ${
         selected ? "bg-accent-soft" : ""
       }`}
     >

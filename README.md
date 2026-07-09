@@ -6,7 +6,6 @@
 
 ## 📸 Preview
 
-> Add screenshots or a GIF here.
 
 ### Auth-Page
 ![Auth-page](./screenshots/vartalapAuthPage.png)
